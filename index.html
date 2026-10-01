@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OnSpot | Instant Part-Time & Gig Staffing Platform</title>
+
+  <!-- Modern Typography: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-header">
+    <div class="header-left">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-wrapper" onclick="resetFilters(); return false;">
+        <img src="assets/logo.png" alt="OnSpot Logo" class="brand-logo-img" style="height: 38px; border-radius: 8px;" onerror="this.onerror=null; this.src='https://placehold.co/80x80/00f59b/040806?text=OS';">
+        <div class="brand-title">
+          ONSPOT
+          <span class="brand-badge">PRO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-links desktop-nav">
+        <a class="nav-item active" onclick="resetFilters()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Home
+        </a>
+        <a class="nav-item" id="top-label-my" onclick="toggleFilterChip('today', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+            <line x1="16" x2="16" y1="2" y2="6" />
+            <line x1="8" x2="8" y1="2" y2="6" />
+            <line x1="3" x2="21" y1="10" y2="10" />
+          </svg>
+          My Shifts
+        </a>
+        <a class="nav-item" onclick="showToast('Live Chat & Messages connected!')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+          </svg>
+          Messages
+        </a>
+        <a class="nav-item" onclick="openSupportCenter()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
+          Support
+        </a>
+        <a class="nav-item" onclick="openProfileDrawer()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          Profile
+        </a>
+      </nav>
+    </div>
+
+    <!-- Header Right Quick Actions & Role Switcher -->
+    <div class="header-right">
+      <!-- Role Switcher -->
+      <div class="role-toggle-wrapper">
+        <button class="role-toggle-btn active" id="btn-seeker" onclick="switchRole('seeker')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Seeker
+        </button>
+        <button class="role-toggle-btn" id="btn-dealer" onclick="switchRole('dealer')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect width="20" height="14" x="2" y="7" rx="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+          Dealer
+        </button>
+      </div>
+
+      <button class="icon-btn" onclick="showToast('Notification: 2 New Catering gigs in Adyar!')" title="Notifications">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+        </svg>
+        <span class="badge-dot"></span>
+      </button>
+
+      <div class="user-quick-profile desktop-nav" onclick="openProfileDrawer()" title="Click to view full profile">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+          class="user-avatar-mini" id="top-nav-avatar-img" alt="User">
+        <span class="user-quick-name display-username">Franklin</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-btn" onclick="openProfileDrawer()">☰</button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       APP WORKSPACE CONTAINER (Mini-Sidebar + Feed)
+       ========================================================================== -->
+  <div class="app-container">
+
+
+
+    <!-- ==========================================================================
+         MAIN CONTENT AREA (Expands to use freed-up space)
+         Direct Flow: Search -> Category Tabs -> Filter Chips -> Section Title -> Cards
+         ========================================================================== -->
+    <main class="main-content">
+
+      <!-- Search & Filters Container (Starts directly after header) -->
+      <div class="search-filter-section">
+        <!-- Live Instant Search Bar + Filter Button -->
+        <div class="search-row">
+          <div class="search-input-container">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input type="text" id="search-input"
+              placeholder="Search shifts by title, venue (e.g. Adyar, Guindy), catering, brand promotion...">
+            <button class="clear-search-btn" id="clear-search">✕</button>
+          </div>
+          <button class="btn-filter" id="btn-open-filter" onclick="openFilterModal()" title="Filter shifts">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            <span class="filter-label-text">Filter</span>
+            <span class="filter-count-badge" id="filter-count-badge">0</span>
+          </button>
+        </div>
+
+        <!-- Horizontal Category Tabs (Clean Jio-Style Simplicity) -->
+        <div class="category-tabs-wrapper no-scrollbar" id="category-tabs">
+          <!-- Injected dynamically via JS -->
+        </div>
+
+        <!-- Smart Filter Chips -->
+        <div class="filter-chips-row no-scrollbar">
+          <button class="filter-chip" onclick="toggleFilterChip('today', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            Today's Shifts
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('highpay', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+              <path d="M12 18V6" />
+            </svg>
+            High Pay (₹800+)
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('instant', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            Instant UPI Pay
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('urgent', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+            </svg>
+            Urgent Openings
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('meals', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+              <line x1="6" x2="6" y1="1" y2="4" />
+              <line x1="10" x2="10" y1="1" y2="4" />
+              <line x1="14" x2="14" y1="1" y2="4" />
+            </svg>
+            Meals Provided
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('boys', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Boys Only
+          </button>
+          <button class="filter-chip" onclick="toggleFilterChip('girls', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Girls Only
+          </button>
+        </div>
+      </div>
+
+      <!-- Section Title & Sort Bar -->
+      <div class="section-meta-bar">
+        <div class="section-title">
+          <span id="section-title-text">Available Shift Openings</span>
+          <span class="count-indicator" id="listings-count-badge">6 Openings</span>
+        </div>
+
+        <div class="sort-select-wrapper">
+          <span>Sort By:</span>
+          <select class="sort-select" id="sort-select">
+            <option value="recommended">Best Recommended</option>
+            <option value="pay_desc">Highest Pay Rate</option>
+            <option value="slots_open">Urgent Spots Open</option>
+            <option value="rating">Top Rated Dealer</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Shift Cards Grid (Expands across full width) -->
+      <div class="shifts-grid" id="listings-container">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       2. RIGHT-SIDE EXPANDABLE PROFILE PANEL / DRAWER
+       Opens when clicking the small profile picture or 'Profile'
+       ========================================================================== -->
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="closeProfileDrawer()"></div>
+  <aside class="profile-drawer" id="profile-drawer" aria-label="Profile Details Panel">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        User Profile & Status
+      </div>
+      <button class="close-btn" onclick="closeProfileDrawer()" title="Close profile drawer">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Profile Highlight -->
+      <div class="drawer-profile-card">
+        <div class="avatar-wrapper" onclick="openCameraModal()" style="cursor: pointer; position: relative;" title="Update Profile Photo">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80"
+            class="avatar-large" id="drawer-avatar-img" alt="Profile">
+          <div class="verified-badge" title="KYC & Aadhar Verified">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--mint-primary)" stroke="#000" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 12px; font-size: 10px; color: var(--mint-primary); white-space: nowrap; border: 1px solid var(--border-mint);">📷 Edit</div>
+        </div>
+        <div class="profile-name display-username">Franklin Stanly</div>
+        <div class="profile-sub">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span id="drawer-city">Chennai, Tamil Nadu</span>
+        </div>
+        <div>
+          <span class="rating-pill" id="user-rating-box">★ 4.9 (24 Gigs Completed)</span>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="drawer-stats-grid">
+        <div class="stat-item">
+          <div class="stat-num" id="drawer-completed-count">24</div>
+          <div class="stat-label">Completed Jobs</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--mint-primary);">100%</div>
+          <div class="stat-label">On-Time Score</div>
+        </div>
+      </div>
+
+      <!-- My Applications / Applied Jobs -->
+      <div class="drawer-info-card">
+        <div class="drawer-card-title">My Applications (Active)</div>
+        <div class="my-applications-list" id="my-applications-list">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Completed Work -->
+      <div class="drawer-info-card">
+        <div class="drawer-card-title">Completed Work</div>
+        <div class="my-applications-list" id="completed-work-list">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- KYC & Verification Details -->
+      <div class="drawer-info-card">
+        <div class="drawer-card-title">Identity & Verification</div>
+        <div class="drawer-info-row">
+          <div class="info-tag-verified">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Aadhar & Biometrics Verified
+          </div>
+        </div>
+        <div class="drawer-info-item">
+          <span class="info-label">WhatsApp Number:</span>
+          <span class="info-val" id="drawer-phone">+91 98402 88192</span>
+        </div>
+      </div>
+
+      <!-- Earnings & Wallet Information -->
+      <div class="drawer-info-card">
+        <div class="drawer-card-title">Earnings & Instant Escrow</div>
+        <div class="wallet-balance-box">
+          <div>
+            <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Available Balance</div>
+            <div class="wallet-num">₹4,200</div>
+          </div>
+          <button class="btn-wallet-withdraw"
+            onclick="showToast('Instant UPI payout initiated to your registered VPA!')">Withdraw</button>
+        </div>
+        <div class="drawer-info-item" style="margin-top:10px;">
+          <span class="info-label">Linked UPI ID:</span>
+          <span class="info-val" id="drawer-upi">franklin@okaxis</span>
+        </div>
+        <div class="drawer-info-item">
+          <span class="info-label">Disbursement:</span>
+          <span class="info-val" style="color:var(--mint-primary);">Instant on Shift Sign-off ⚡</span>
+        </div>
+      </div>
+
+      <!-- Profile Update Action & Auth -->
+      <div style="margin-top:8px; display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn-action-primary" style="width:100%; justify-content:center; padding:11px;"
+          onclick="closeProfileDrawer(); openProfileSetup();">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          Edit Profile & Settings
+        </button>
+        <button class="btn-details" style="width:100%; justify-content:center; padding:11px;" id="login-btn-action" onclick="closeProfileDrawer(); openLoginModal();">
+          Login
+        </button>
+        <button class="btn-cancel" style="width:100%; justify-content:center; padding:11px; color: var(--danger);" id="logout-btn-action" onclick="handleLogoutClick()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       DEALER FLOATING ACTION BUTTON (ONLY '+' ICON)
+       ========================================================================== -->
+  <button class="dealer-add-fab" id="dealer-fab" onclick="openPostModal()" title="Add Work Requirement"
+    aria-label="Add Work Requirement">
+    +
+  </button>
+
+  <!-- ==========================================================================
+       MODAL 1: SHIFT DETAILS & INSTANT APPLY
+       ========================================================================== -->
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+            <rect width="20" height="14" x="2" y="7" rx="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+          Shift Details & Application
+        </h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <div id="details-modal-content">
+        <!-- Dynamic Content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: DEALER WORK REQUIREMENT FORM
+       ========================================================================== -->
+  <div class="modal-overlay" id="post-modal">
+    <div class="modal-card">
+      <div class="modal-header" style="justify-content: flex-start; margin-bottom: 16px;">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+          Post Work Requirement
+        </h3>
+        <!-- Top-right 'X' close button removed as requested -->
+      </div>
+
+      <form id="work-requirement-form" onsubmit="handlePostSubmit(event)">
+        <!-- 1. Work Category & 7. How Many Workers Are Needed? -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Work Category</label>
+            <select id="post-category" class="form-control" required>
+              <option value="Catering">Catering Service</option>
+              <option value="Promotions">Event Promotions</option>
+              <option value="Pamphlet">Pamphlet Distribution</option>
+              <option value="Ushering">Ushering & VIP Support</option>
+              <option value="Setup">Stage & Logistics</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>How Many Workers Are Needed?</label>
+            <input type="number" id="post-slots" class="form-control" min="1" max="100" placeholder="e.g. 8" required>
+          </div>
+        </div>
+
+        <!-- 4. Payment Rate & 8. Phone Number -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Payment Rate</label>
+            <input type="text" id="post-pay" class="form-control" placeholder="e.g. ₹800 per worker / per shift"
+              required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="post-phone" class="form-control" placeholder="e.g. +91 98401 23456" required>
+          </div>
+        </div>
+
+        <!-- 5. Date & Time & 6. Shift Timing -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date of Work</label>
+            <input type="text" id="post-date" class="form-control" placeholder="e.g. Tomorrow, 25 Sept" required>
+          </div>
+          <div class="form-group">
+            <label>Shift Timing</label>
+            <input type="text" id="post-time" class="form-control" placeholder="e.g. 5:30 PM – 11:00 PM" required>
+          </div>
+        </div>
+
+        <!-- 2. Venue Address & Location -->
+        <div class="form-group">
+          <label>Venue Address & Location</label>
+          <input type="text" id="post-loc" class="form-control" placeholder="e.g. Royal Palace Banquets, Adyar, Chennai"
+            required>
+        </div>
+
+        <!-- 3. Work Details -->
+        <div class="form-group">
+          <label>Work Details</label>
+          <textarea id="post-details" class="form-control" rows="3"
+            placeholder="Describe the work responsibilities, required dress code, tasks, etc..."
+            style="resize: vertical; min-height: 70px;"></textarea>
+        </div>
+
+        <!-- Bottom Action Buttons: Cancel on left, Submit on right -->
+        <div class="form-actions-bottom">
+          <button type="button" class="btn-cancel" onclick="closePostModal()">Cancel</button>
+          <button type="submit" class="btn-submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: DEALER APPLICANTS MANAGER
+       ========================================================================== -->
+  <div class="modal-overlay" id="manage-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          Manage Shift Applicants
+        </h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <div>
+        <h4 id="manage-post-title" style="font-size:14px; color:var(--mint-primary); margin-bottom:10px;">Opening Title
+        </h4>
+        <div class="applicants-list" id="manage-applicants-list">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 5: FILTER SHIFTS
+       ========================================================================== -->
+  <div class="modal-overlay" id="filter-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+          </svg>
+          Filter Shifts
+        </h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+
+      <!-- Location / Nearby -->
+      <div class="filter-section">
+        <div class="filter-section-title">📍 Location / Nearby</div>
+        <button class="btn-near-me" id="btn-near-me" onclick="requestNearMe()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+          </svg>
+          Use My Current Location
+        </button>
+        <div class="filter-locality-row" id="filter-locality-row">
+          <!-- Injected: Near Me / Chennai / Adyar / Guindy etc. -->
+        </div>
+        <div class="filter-location-active" id="filter-location-active">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="filter-location-active-text">Location selected</span>
+        </div>
+      </div>
+
+      <!-- Distance -->
+      <div class="filter-section">
+        <div class="filter-section-title">Distance</div>
+        <div class="filter-option-grid" id="filter-distance-group">
+          <button class="filter-option-btn" data-distance="1" onclick="setDistanceFilter(1, this)">Within 1 km</button>
+          <button class="filter-option-btn" data-distance="5" onclick="setDistanceFilter(5, this)">Within 5 km</button>
+          <button class="filter-option-btn" data-distance="10" onclick="setDistanceFilter(10, this)">Within 10 km</button>
+          <button class="filter-option-btn" data-distance="25" onclick="setDistanceFilter(25, this)">Within 25 km</button>
+        </div>
+      </div>
+
+      <!-- Job Category -->
+      <div class="filter-section">
+        <div class="filter-section-title">Job Category</div>
+        <div class="filter-option-grid" id="filter-category-group">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Date -->
+      <div class="filter-section">
+        <div class="filter-section-title">Date</div>
+        <div class="filter-option-grid" id="filter-date-group">
+          <button class="filter-option-btn" data-date="today" onclick="setDateFilter('today', this)">Today</button>
+          <button class="filter-option-btn" data-date="tomorrow" onclick="setDateFilter('tomorrow', this)">Tomorrow</button>
+          <button class="filter-option-btn" data-date="upcoming" onclick="setDateFilter('upcoming', this)">Upcoming</button>
+        </div>
+      </div>
+
+      <!-- Salary Range -->
+      <div class="filter-section">
+        <div class="filter-section-title">Salary Range (₹ per shift)</div>
+        <div class="filter-salary-row">
+          <input type="number" class="form-control" id="filter-salary-min" placeholder="Min e.g. 500" min="0">
+          <span style="color:var(--text-muted);">to</span>
+          <input type="number" class="form-control" id="filter-salary-max" placeholder="Max e.g. 1200" min="0">
+        </div>
+      </div>
+
+      <!-- Job Duration -->
+      <div class="filter-section">
+        <div class="filter-section-title">Job Duration</div>
+        <div class="filter-option-grid" id="filter-duration-group">
+          <button class="filter-option-btn" data-duration="short" onclick="setDurationFilter('short', this)">Short (&lt; 4 hrs)</button>
+          <button class="filter-option-btn" data-duration="medium" onclick="setDurationFilter('medium', this)">Medium (4–6 hrs)</button>
+          <button class="filter-option-btn" data-duration="long" onclick="setDurationFilter('long', this)">Long (6+ hrs)</button>
+        </div>
+      </div>
+
+      <!-- Gender Eligibility -->
+      <div class="filter-section">
+        <div class="filter-section-title">Gender Eligibility</div>
+        <div class="filter-option-grid" id="filter-gender-group">
+          <button class="filter-option-btn" data-gender="any" onclick="setGenderFilter('any', this)">Any</button>
+          <button class="filter-option-btn" data-gender="boys" onclick="setGenderFilter('boys', this)">Boys Only</button>
+          <button class="filter-option-btn" data-gender="girls" onclick="setGenderFilter('girls', this)">Girls Only</button>
+        </div>
+      </div>
+
+      <div class="filter-drawer-footer">
+        <button type="button" class="btn-cancel" style="flex:1;" onclick="clearAllAdvancedFilters()">Clear All</button>
+        <button type="button" class="btn-submit" style="flex:2;" onclick="applyAdvancedFilters()">Apply Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: PROFILE SETUP & KYC
+       ========================================================================== -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2.5">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Profile & Payout Settings
+        </h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <form onsubmit="handleProfileSave(event)">
+        <div class="form-group">
+          <label>Full Legal Name</label>
+          <input type="text" id="profile-name-input" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp Contact Number</label>
+            <input type="text" id="profile-phone-input" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>City & Preferred Locality</label>
+            <input type="text" id="profile-city-input" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>UPI ID (For Instant Escrow Payout)</label>
+          <input type="text" id="profile-upi-input" class="form-control" placeholder="e.g. mobile@upi" required>
+        </div>
+        <div
+          style="background: rgba(0, 245, 155, 0.06); border: 1px solid var(--border-mint); border-radius: var(--radius-md); padding: 12px; margin-bottom: 16px; font-size: 12px; color: var(--text-secondary);">
+          🛡️ <strong>OnSpot Shield:</strong> Verified profiles with registered UPI IDs receive instant escrow
+          disbursement immediately upon shift sign-off.
+        </div>
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center; padding: 11px;">
+          Save & Update Profile
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 6: SUPPORT CENTER
+       ========================================================================== -->
+  <div class="modal-overlay" id="support-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Support Center</h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <form id="support-form" onsubmit="handleSupportSubmit(event)">
+        <div class="form-group">
+          <label>Issue Type</label>
+          <select class="form-control" id="support-issue-type" required>
+            <option value="">Select Issue Type</option>
+            <option value="Payment">Payment</option>
+            <option value="Refund">Refund</option>
+            <option value="Job">Job / Shift</option>
+            <option value="Application">Application</option>
+            <option value="Profile">Profile</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Job / Shift (Optional)</label>
+          <select class="form-control" id="support-job-select">
+            <option value="">Select Job</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" id="support-desc" rows="4" placeholder="Write your issue..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Upload Screenshot (Optional)</label>
+          <input type="file" class="form-control" accept="image/*">
+        </div>
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center; padding: 11px;">
+          Submit Complaint
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 7: PAYMENT MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="payment-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Secure Payment</h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 13px; color: var(--text-muted);">Amount to Pay</div>
+        <div style="font-size: 28px; font-weight: 800; color: var(--mint-primary); font-family: 'Space Grotesk';" id="payment-amount-display">₹0</div>
+      </div>
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select class="form-control" id="payment-method-select" onchange="togglePaymentFields()">
+          <option value="upi">UPI (GPay, PhonePe, Paytm, BHIM)</option>
+          <option value="card">Debit / Credit Card</option>
+        </select>
+      </div>
+      <div id="payment-upi-fields" class="form-group">
+        <label>Enter UPI ID</label>
+        <input type="text" class="form-control" id="payment-upi-id" placeholder="e.g. name@okbank">
+      </div>
+      <div id="payment-card-fields" style="display: none;">
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" class="form-control" id="payment-card-num" placeholder="XXXX XXXX XXXX XXXX">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Expiry Date</label>
+            <input type="text" class="form-control" id="payment-card-exp" placeholder="MM/YY">
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="password" class="form-control" id="payment-card-cvv" placeholder="123">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Card Holder Name</label>
+          <input type="text" class="form-control" id="payment-card-name" placeholder="Name on card">
+        </div>
+      </div>
+      <button type="button" class="btn-action-primary" style="width: 100%; justify-content: center; padding: 11px;" onclick="processPayment()">
+        Pay Securely
+      </button>
+      <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">
+        🔒 This is a secure sandbox environment. Do not enter real banking credentials.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 8: CAMERA / FACE DETECTION
+       ========================================================================== -->
+  <div class="modal-overlay" id="camera-modal">
+    <div class="modal-card" style="text-align: center;">
+      <div class="modal-header">
+        <h3>Set Profile Photo</h3>
+        <button class="close-btn" onclick="closeCameraModal()">✕</button>
+      </div>
+      <div style="position: relative; width: 100%; max-width: 320px; margin: 0 auto 16px auto; aspect-ratio: 3/4; background: #000; border-radius: var(--radius-lg); overflow: hidden;">
+        <video id="camera-video" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <canvas id="camera-canvas" style="display: none;"></canvas>
+        <img id="camera-preview-img" style="display: none; width: 100%; height: 100%; object-fit: cover;" />
+        <!-- Face Guide Overlay -->
+        <div id="face-guide-overlay" style="position: absolute; inset: 0; pointer-events: none; border: 4px dashed rgba(255,255,255,0.4); border-radius: 50%; width: 60%; height: 60%; top: 20%; left: 20%; transition: border-color 0.3s;"></div>
+      </div>
+      <div id="camera-status-text" style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">
+        Requesting camera access...
+      </div>
+      <div id="camera-action-buttons" style="display: flex; gap: 10px; justify-content: center;">
+        <button class="btn-action-primary" id="btn-capture-photo" onclick="capturePhoto()" disabled>Capture Photo</button>
+      </div>
+      <div id="camera-confirm-buttons" style="display: none; gap: 10px; justify-content: center;">
+        <button class="btn-cancel" onclick="retakePhoto()">Retake</button>
+        <button class="btn-action-primary" onclick="useCapturedPhoto()">Use Photo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 9: LOGIN
+       ========================================================================== -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Login to OnSpot</h3>
+        <button class="close-btn" onclick="closeAllModals()">✕</button>
+      </div>
+      <form onsubmit="handleLoginSubmit(event)">
+        <div class="form-group">
+          <label>Email / Phone</label>
+          <input type="text" class="form-control" id="login-email" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" id="login-password" required>
+        </div>
+        <div style="text-align: right; margin-bottom: 16px;">
+          <a href="#" style="font-size: 12px; color: var(--mint-primary); text-decoration: none;">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center; padding: 11px;">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 10: WORKER LOCATION TRACKER
+       ========================================================================== -->
+  <div class="modal-overlay" id="location-tracker-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Worker Location</h3>
+        <button class="close-btn" onclick="closeLocationTracker()">✕</button>
+      </div>
+      <div style="background: var(--bg-darkest); border-radius: var(--radius-md); height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid var(--border-subtle); position: relative; overflow: hidden;">
+        <!-- Mock Map Background -->
+        <div style="position: absolute; inset: 0; background: radial-gradient(circle, rgba(0,245,155,0.1) 0%, rgba(4,8,6,1) 100%);"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--mint-primary)" stroke-width="2" style="position: absolute; top: 40%; left: 45%;">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <span style="z-index: 1; font-weight: 700; color: var(--text-muted);">Demo Map View</span>
+      </div>
+      
+      <div class="drawer-info-item">
+        <span class="info-label">Worker:</span>
+        <span class="info-val" id="tracker-worker-name">Karthik Raja</span>
+      </div>
+      <div class="drawer-info-item">
+        <span class="info-label">Status:</span>
+        <span class="info-val" style="color: var(--mint-primary);">🟢 On Shift</span>
+      </div>
+      <div class="drawer-info-item">
+        <span class="info-label">Location:</span>
+        <span class="info-val">Near Koyambedu</span>
+      </div>
+      <div class="drawer-info-item">
+        <span class="info-label">Distance:</span>
+        <span class="info-val">1.2 km from venue</span>
+      </div>
+      <div class="drawer-info-item">
+        <span class="info-label">Last Updated:</span>
+        <span class="info-val">2 minutes ago</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <button class="btn-cancel" style="width: 100%; border: 1px solid var(--danger); color: var(--danger);" onclick="stopLocationSharing()">
+          Stop Location Sharing
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       GLOBAL FLOATING TOAST NOTIFICATION
+       ========================================================================== -->
+  <div class="toast-container" id="global-toast">
+    <div class="toast-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+    <div class="toast-message" id="toast-text">Operation completed successfully</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
